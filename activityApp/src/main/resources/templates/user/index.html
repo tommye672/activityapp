@@ -1,0 +1,28 @@
+<!doctype html>
+<html data-layout-decorator="default">
+<head>
+</head>
+<body>
+	<div class="col" data-layout-fragment="content">
+		<table class="table">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Förnamn</th>
+					<th scope="col">Efternamn</th>
+					<th scope="col">Initialer</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr data-th-each="user : ${users}">
+					<td scope="row"><a data-th-text="${user.id}" data-th-href="@{'/users/'+${user.id}}">uid</a></td>
+					<td data-th-text="${user.fName}">fnamne</td>
+					<td data-th-text="${user.lName}">lnamne</td>
+					<td data-th-text="${user.initials}">initials</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div data-layout-decorator="scripts"></div>
+</body>
+</html>

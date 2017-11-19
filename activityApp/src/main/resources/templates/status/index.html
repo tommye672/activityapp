@@ -1,0 +1,24 @@
+<!doctype html>
+<html data-layout-decorator="default">
+<head>
+</head>
+<body>
+	<div class="col" data-layout-fragment="content">
+		<table class="table">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Status</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr data-th-each="status : ${status}">
+					<td scope="row"><a data-th-text="${status.id}" data-th-href="@{'/status/'+${status.id}}">uid</a></td>
+					<td data-th-text="${status.text}">stauts</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div data-layout-decorator="scripts"></div>
+</body>
+</html>

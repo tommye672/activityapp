@@ -12,67 +12,66 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.yhsipi17.activityApp.model.User;
-import com.yhsipi17.activityApp.service.user.UserService;
+import com.yhsipi17.activityApp.model.Status;
+import com.yhsipi17.activityApp.service.status.StatusService;
 
 
 @Controller
-@RequestMapping(value = "/users")
-public class UserController {
+@RequestMapping(value = "/status")
+public class StatusController {
 
 	@Autowired
-	private UserService userService;
+	private StatusService statusService;
 	
 	// FindAll
 	@RequestMapping(value = "/")
-	public String getUsers(Model model) {
-		model.addAttribute("users", userService.findAll());
-		return "/user/index";
+	public String getAll(Model model) {
+		model.addAttribute("status", statusService.findAll());
+		return "/status/index";
 	}
 	
 	// FindOne
 	@RequestMapping(value = "/{id}")
-	public ModelAndView getUser(@PathVariable int id) {
-		ModelAndView mav = new ModelAndView("/user/user");
-		mav.addObject("user", userService.findOne(id)); 
+	public ModelAndView getStatus(@PathVariable int id) {
+		ModelAndView mav = new ModelAndView("/status/status");
+		mav.addObject("status", statusService.findOne(id)); 
 		return mav;
 	}
 	
 	// Add -> AddForm
-    @GetMapping("/adduser")
+    @GetMapping("/add")
     public String addForm(Model model) {
-        model.addAttribute("user", new User());
-        return "/user/adduser";
+        model.addAttribute("status", new Status());
+        return "/status/addstatus";
     }
 
     // Edit -> AddForm
     @GetMapping("/edit/{id}")
-    public String editUser(@PathVariable int id, Model model) {
-        model.addAttribute("user", userService.findOne(id));
-        return "/user/adduser";
+    public String editStatus(@PathVariable int id, Model model) {
+        model.addAttribute("status", statusService.findOne(id));
+        return "/status/addstatus";
     }    
     
     // Save
-    @PostMapping("/adduser")
-    public String saveUser(@ModelAttribute User user, BindingResult result, ModelMap model){
+    @PostMapping("/add")
+    public String saveStatus(@ModelAttribute Status status, BindingResult result, ModelMap model){
     	
     	if (result.hasErrors()) {
     		System.out.println(model.toString());
     		return "error";
     	}
     	
-		System.out.println(user.toString());
-    	userService.saveUser(user);
+    	statusService.saveStatus(status);
     	
-        return "redirect:/users/";
+        return "redirect:/status/";
     }
     
     // Delete
 	@RequestMapping(value = "/remove/{id}")
-	public String deleteUser(@PathVariable int id) {
-		userService.deleteUser(id);
+	public String deleteStatus(@PathVariable int id) {
+		statusService.deleteStatus(id);
 		
-		return "redirect:/users/";
+		return "redirect:/status/";
 	}
     
     

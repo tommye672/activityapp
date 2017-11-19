@@ -1,0 +1,33 @@
+<!doctype html>
+<html data-layout-decorator="default">
+<head>
+
+</head>
+<body>
+
+	<div class="col-sm-8" data-layout-fragment="content">
+		<table class="table">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Text</th>
+					<th scope="col"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td scope="row" data-th-text="${status.id}">id</td>
+					<td data-th-text="${status.text}">text</td>
+					<td scope="row">
+						<a data-th-href="@{'/status/'+${status.id}}">view </a>
+						<a data-th-href="@{'/status/edit/'+${status.id}}">edit </a>
+						<a data-th-href="@{'/status/remove/'+${status.id}}">delete</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<a href="/status/">back to status!</a>
+	</div>
+	<div data-layout-decorator="scripts"></div>
+</body>
+</html>

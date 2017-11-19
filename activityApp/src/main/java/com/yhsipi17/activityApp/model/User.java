@@ -2,7 +2,6 @@ package com.yhsipi17.activityApp.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="appuser")
@@ -14,16 +13,15 @@ public class User implements Serializable {
 	@Column(insertable=false, updatable=false, unique=true, nullable=false)
 	private Integer id;
 
-	@Column(length=255)
-	@NotNull
+	@Column(length=255, nullable=false)
 	private String fName;
-	@NotNull
-	@Column(length=255)
-	private String initials;
-	@NotNull
-	@Column(length=255)
+
+	@Column(length=255, nullable=false)
 	private String lName;
 
+	@Column(length=10, unique=true, nullable=false)
+	private String initials;
+	
 	public User() {
 	}
 

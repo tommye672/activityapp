@@ -1,6 +1,8 @@
 package com.yhsipi17.activityApp.model;
 
 import java.io.Serializable;
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -15,9 +17,20 @@ public class Status implements Serializable {
 
 	@Column(length=255, unique=true, nullable=false)
 	private String text;
+	
+	@OneToMany(mappedBy="status")
+	private List<Activity> activities;
 
 	public Integer getId() {
 		return id;
+	}
+
+	public List<Activity> getActivities() {
+		return activities;
+	}
+
+	public void setActivities(List<Activity> activities) {
+		this.activities = activities;
 	}
 
 	public void setId(Integer id) {

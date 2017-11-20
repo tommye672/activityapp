@@ -1,0 +1,43 @@
+<!doctype html>
+<html data-layout-decorator="default">
+<head>
+</head>
+<body>
+	<div class="col" data-layout-fragment="content">
+		<table class="table">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Text</th>
+					<th scope="col">Author</th>
+					<th scope="col">Owner</th>
+					<th scope="col">PubDate</th>
+					<th scope="col">RequsetDate</th>
+					<th scope="col">EndDate</th>
+					<th scope="col">Status</th>
+					<th scope="col">Comments</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr data-th-each="activity : ${activity}">
+					<td scope="row"><a data-th-text="${activity.id}" data-th-href="@{'/activity/'+${activity.id}}">uid</a></td>
+					<td data-th-text="${activity.text}">stauts</td>
+					<td data-th-text="${activity.author}">stauts</td>
+					<td data-th-text="${activity.owner}">stauts</td>
+					<td data-th-text="${activity.pubDate}">stauts</td>
+					<td data-th-text="${activity.requestDate}">stauts</td>
+					<td data-th-text="${activity.endDate}">stauts</td>
+					<td>
+						<ol>
+							<li data-th-each="comment : ${activity.comments}">
+								<p data-th-text="${comment.text}">comment></p>
+							</li>
+						</ol>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div data-layout-decorator="scripts"></div>
+</body>
+</html>

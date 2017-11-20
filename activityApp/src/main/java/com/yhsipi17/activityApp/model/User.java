@@ -1,6 +1,8 @@
 package com.yhsipi17.activityApp.model;
 
 import java.io.Serializable;
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -22,44 +24,88 @@ public class User implements Serializable {
 	@Column(length=10, unique=true, nullable=false)
 	private String initials;
 	
-	public User() {
-	}
+	@OneToMany(mappedBy="fk_author")
+	private List<Activity> activitiesAuthor;
+	
+	@OneToMany(mappedBy="owner")
+	private List<Activity> activitiesOwner;
+	
+	@OneToMany(mappedBy= "author")
+	private List<Comment> comments;
 
-	public Integer getId() {
-		return this.id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getFName() {
-		return this.fName;
-	}
-
-	public void setFName(String fName) {
-		this.fName = fName;
-	}
-
-	public String getInitials() {
-		return this.initials;
-	}
-
-	public void setInitials(String initials) {
-		this.initials = initials;
-	}
-
-	public String getLName() {
-		return this.lName;
-	}
-
-	public void setLName(String lName) {
-		this.lName = lName;
-	}
 
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", fName=" + fName + ", initials=" + initials + ", lName=" + lName + "]";
 	}
 
+
+	public Integer getId() {
+		return id;
+	}
+
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+
+	public String getfName() {
+		return fName;
+	}
+
+
+	public void setfName(String fName) {
+		this.fName = fName;
+	}
+
+
+	public String getlName() {
+		return lName;
+	}
+
+
+	public void setlName(String lName) {
+		this.lName = lName;
+	}
+
+
+	public String getInitials() {
+		return initials;
+	}
+
+
+	public void setInitials(String initials) {
+		this.initials = initials;
+	}
+
+
+	public List<Activity> getActivitiesAuthor() {
+		return activitiesAuthor;
+	}
+
+
+	public void setActivitiesAuthor(List<Activity> activitiesAuthor) {
+		this.activitiesAuthor = activitiesAuthor;
+	}
+
+
+	public List<Activity> getActivitiesOwner() {
+		return activitiesOwner;
+	}
+
+
+	public void setActivitiesOwner(List<Activity> activitiesOwner) {
+		this.activitiesOwner = activitiesOwner;
+	}
+
+
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
 }

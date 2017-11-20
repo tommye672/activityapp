@@ -1,0 +1,30 @@
+<!doctype html>
+<html data-layout-decorator="default">
+<head>
+</head>
+<body>
+	<div class="col" data-layout-fragment="content">
+		<table class="table">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Text</th>
+					<th scope="col">Date</th>
+					<th scope="col">Author</th>
+					<th scope="col">Activity</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr data-th-each="comment : ${comment}">
+					<td scope="row"><a data-th-text="${comment.id}" data-th-href="@{'/comment/'+${comment.id}}">uid</a></td>
+					<td data-th-text="${comment.text}">stauts</td>
+					<td data-th-text="${comment.date}">stauts</td>
+					<td data-th-text="${comment.author}">stauts</td>
+					<td data-th-text="${comment.activity}">stauts</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div data-layout-decorator="scripts"></div>
+</body>
+</html>

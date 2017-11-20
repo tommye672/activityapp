@@ -19,10 +19,12 @@ public class Activity implements Serializable {
 	@Column(nullable=false)
 	private String text;
 
-	@Column(nullable=false)
-	private User author;
+	@ManyToOne
+	@JoinColumn(name= "fk_author")
+	private User fk_author;
 	
-	@Column(nullable=false)
+	@ManyToOne
+	@JoinColumn(name= "fk_owner")
 	private User owner;
 	
 	@Column(nullable=false)
@@ -32,14 +34,21 @@ public class Activity implements Serializable {
 	private Date requestDate;
 	
 	@Column
-	private Date endDate;
-
-	@Column(nullable=false)
+	private Date finishedDate;
+	
+	@ManyToOne
+	@JoinColumn(name= "fk_activity")
 	private Status status;
 	
-	@OneToMany
-	@Column
+	@OneToMany(mappedBy= "activity")
 	private List<Comment> comments;
+
+	@Override
+	public String toString() {
+		return "Activity [id=" + id + ", text=" + text + ", author=" + fk_author + ", owner=" + owner + ", pubDate="
+				+ pubDate + ", requestDate=" + requestDate + ", endDate=" + finishedDate + ", status=" + status
+				+ ", comments=" + comments + "]";
+	}
 
 	public Integer getId() {
 		return id;
@@ -58,11 +67,11 @@ public class Activity implements Serializable {
 	}
 
 	public User getAuthor() {
-		return author;
+		return fk_author;
 	}
 
 	public void setAuthor(User author) {
-		this.author = author;
+		this.fk_author = author;
 	}
 
 	public User getOwner() {
@@ -90,11 +99,11 @@ public class Activity implements Serializable {
 	}
 
 	public Date getEndDate() {
-		return endDate;
+		return finishedDate;
 	}
 
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
+	public void setEndDate(Date finishedDate) {
+		this.finishedDate = finishedDate;
 	}
 
 	public Status getStatus() {
@@ -112,6 +121,8 @@ public class Activity implements Serializable {
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
 	}
+	
+	
 	
 	
 }

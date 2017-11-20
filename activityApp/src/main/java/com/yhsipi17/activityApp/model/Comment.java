@@ -20,9 +20,14 @@ public class Comment implements Serializable {
 
 	@Column(nullable=false)
 	private Date date;
-	
-	@Column(nullable=false)
+		
+	@ManyToOne
+	@JoinColumn(name = "fk_user")
 	private User author;
+	
+	@ManyToOne
+	@JoinColumn(name = "fk_activity")
+	private Activity activity;
 
 	public Integer getId() {
 		return id;
@@ -56,4 +61,13 @@ public class Comment implements Serializable {
 		this.author = author;
 	}
 
+	public Activity getActivity() {
+		return activity;
+	}
+
+	public void setActivity(Activity activity) {
+		this.activity = activity;
+	}
+
+	
 }

@@ -72,6 +72,5 @@ public class StatusController {
 		
 		return "redirect:/status/";
 	}
-    
-    
+
 }

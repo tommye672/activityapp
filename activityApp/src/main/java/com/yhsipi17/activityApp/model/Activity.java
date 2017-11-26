@@ -40,10 +40,10 @@ public class Activity implements Serializable {
 	private Date finishedDate;
 	
 	@ManyToOne
-	@JoinColumn(name= "fk_activity")
+	@JoinColumn(name= "fk_status")
 	private Status status;
 	
-	@OneToMany(mappedBy= "activity",orphanRemoval=true, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy= "activity",cascade = CascadeType.ALL)
 	private List<Comment> comments;
 
 	@Override
@@ -122,10 +122,6 @@ public class Activity implements Serializable {
 	}
 
 	public void setComments(List<Comment> comments) {	
-		//this.comments = comments;
-	    this.comments.clear();
-	    if (comments != null) {
-	      this.comments.addAll(comments);
-	    }
+		this.comments = comments;
 	}
 }

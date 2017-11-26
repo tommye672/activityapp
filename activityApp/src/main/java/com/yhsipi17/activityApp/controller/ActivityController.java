@@ -2,7 +2,6 @@ package com.yhsipi17.activityApp.controller;
 
 import java.util.Calendar;
 import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -69,9 +68,9 @@ public class ActivityController {
 				Date today = Calendar.getInstance().getTime();
 				activity.setPubDate(today);
 			}
-			System.out.println(activity.toString());
+			//System.out.println(activity.toString());
 			activityService.saveActivity(activity);
-	
+
 			return "redirect:/activity/";
 		}
 

@@ -18,7 +18,7 @@ public class Status implements Serializable {
 	@Column(length=255, unique=true, nullable=false)
 	private String text;
 	
-	@OneToMany(mappedBy="status")
+	@OneToMany(mappedBy="status", cascade= CascadeType.ALL)
 	private List<Activity> activities;
 
 	public Integer getId() {
@@ -32,7 +32,7 @@ public class Status implements Serializable {
 	public void setActivities(List<Activity> activities) {
 		this.activities = activities;
 	}
-
+	
 	public void setId(Integer id) {
 		this.id = id;
 	}
@@ -40,10 +40,9 @@ public class Status implements Serializable {
 	public String getText() {
 		return text;
 	}
-
+	
 	public void setText(String text) {
 		this.text = text;
 	}
 	
-
 }

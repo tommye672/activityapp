@@ -3,8 +3,8 @@ package com.yhsipi17.activityApp.model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-
 import javax.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name="activity")
@@ -28,19 +28,22 @@ public class Activity implements Serializable {
 	private User owner;
 	
 	@Column(nullable=false)
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date pubDate;
 	
 	@Column
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date requestDate;
 	
 	@Column
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date finishedDate;
 	
 	@ManyToOne
 	@JoinColumn(name= "fk_activity")
 	private Status status;
 	
-	@OneToMany(mappedBy= "activity")
+	@OneToMany(mappedBy= "activity",orphanRemoval=true, cascade = CascadeType.ALL)
 	private List<Comment> comments;
 
 	@Override
@@ -118,11 +121,11 @@ public class Activity implements Serializable {
 		return comments;
 	}
 
-	public void setComments(List<Comment> comments) {
-		this.comments = comments;
+	public void setComments(List<Comment> comments) {	
+		//this.comments = comments;
+	    this.comments.clear();
+	    if (comments != null) {
+	      this.comments.addAll(comments);
+	    }
 	}
-	
-	
-	
-	
 }

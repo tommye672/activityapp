@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import com.yhsipi17.activityApp.model.Activity;
 import com.yhsipi17.activityApp.service.activity.ActivityService;
+import com.yhsipi17.activityApp.service.status.StatusService;
 import com.yhsipi17.activityApp.service.user.UserService;
 
 
@@ -22,15 +23,15 @@ public class ActivityController {
 
 		@Autowired
 		private ActivityService activityService;
-		
 		@Autowired
 		private UserService userService;
+		@Autowired
+		private StatusService statusService;
 		
 		// FindAll
 		@RequestMapping(value = "/")
 		public String getAll(Model model) {
-			model.addAttribute("activity", activityService.findAll());
-	    	System.out.println(activityService.findAll());
+			model.addAttribute("activity", activityService.findAllOrderedByRequestDateAsc());
 			return "/activity/index";
 		}
 		
@@ -46,36 +47,39 @@ public class ActivityController {
 	    @GetMapping("/add")
 	    public String addForm(Model model) {
 	        model.addAttribute("activity", new Activity());
-	        return "/activity/addactivity";
+	        model.addAttribute("users", userService.findAll());
+	        model.addAttribute("status", statusService.findAll());
+	        return "/activity/addactivity"; 
 	    }
 
 	    // Edit -> AddForm
 	    @GetMapping("/edit/{id}")
 	    public String editActivity(@PathVariable int id, Model model) {
 	        model.addAttribute("activity", activityService.findOne(id));
+	        model.addAttribute("users", userService.findAll());
+	        model.addAttribute("status", statusService.findAll());
 	        return "/activity/addactivity";
 	    }    
 	    
 	    // Save
-	    @PostMapping("/add")
-	    public String saveActivity(Activity activity){
-	    	
-	    	Date today = Calendar.getInstance().getTime();	    	
-	    	activity.setAuthor(userService.findOne(1));
-	    	activity.setPubDate(today);
-	    	activity.setRequestDate(today);
-	    	activity.setEndDate(today);
-	    	System.out.println(activity);
-	    	activityService.saveActivity(activity);
-	    	
-	        return "redirect:/activity/";
-	    }
-	    
+		@PostMapping("/add")
+		public String saveActivity(Activity activity) {
+	
+			if (activity.getPubDate() == null) {
+				Date today = Calendar.getInstance().getTime();
+				activity.setPubDate(today);
+			}
+			System.out.println(activity.toString());
+			activityService.saveActivity(activity);
+	
+			return "redirect:/activity/";
+		}
+
 	    // Delete
 		@RequestMapping(value = "/remove/{id}")
 		public String deleteActivity(@PathVariable int id) {
-			activityService.deleteActivity(id);
 			
+			activityService.deleteActivity(id);
 			return "redirect:/activity/";
 		}
 	}

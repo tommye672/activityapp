@@ -4,16 +4,15 @@
 </head>
 <body>
 	<div class="col-sm-8" data-layout-fragment="content">
-		<h1>Form</h1>
+		<h1 class="mb-2">Status</h1>
 		<form data-th-action="@{/status/add}" data-th-object="${status}"
 			method="post">
+ 			<input type="hidden" data-th-field="*{id}" />
 			<p>
-				Id: <input type="text" data-th-field="*{id}" />
+				Text:<br />			
+				<input class="mb-4" type="text" data-th-field="*{text}" />
 			</p>
-			<p>
-				Text: <input type="text" data-th-field="*{text}" />
-			</p>
-			<p>
+			<p >
 				<input type="submit" value="Submit" /> <input type="reset"
 					value="Reset" />
 			</p>

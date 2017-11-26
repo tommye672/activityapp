@@ -2,7 +2,6 @@ package com.yhsipi17.activityApp.model;
 
 import java.io.Serializable;
 import java.util.Date;
-
 import javax.persistence.*;
 
 @Entity
@@ -28,6 +27,14 @@ public class Comment implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "fk_activity")
 	private Activity activity;
+
+	protected Comment() {
+	}
+
+	public Comment(Activity activity) {
+		this.activity = activity;
+	}
+
 
 	public Integer getId() {
 		return id;

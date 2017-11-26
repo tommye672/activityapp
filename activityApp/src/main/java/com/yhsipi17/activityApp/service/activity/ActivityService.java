@@ -1,7 +1,6 @@
 package com.yhsipi17.activityApp.service.activity;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.yhsipi17.activityApp.model.Activity;
@@ -15,6 +14,10 @@ public class ActivityService {
 	
 	public List<Activity> findAll(){
 		return activityRepository.findAll();
+	}
+	
+	public List<Activity> findAllOrderedByRequestDateAsc(){
+		return activityRepository.findAllByOrderByRequestDateAsc();
 	}
 	
 	public Activity findOne(Integer id){

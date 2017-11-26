@@ -11,7 +11,7 @@
 						<th scope="col">Text</th>
 						<th scope="col">Ansvarig</th>
 						<th scope="col">Skapad</th>
-						<th scope="col">Ã–nskat datum</th>
+						<th scope="col">Önskat datum</th>
 						<th scope="col">Status</th>
 						<th scope="col"></th>
 					</tr>
@@ -21,9 +21,8 @@
 						<td data-th-text="${#strings.abbreviate(activity.text,100)}">text</td>
 						<td data-th-text="${activity.owner?.initials}">initials</td>
 						<td data-th-text="${#dates.format(activity.pubDate, 'yyyy-MM-dd')}">pubdate</td>
-						<td data-th-if="${activity.requestDate != null}" data-th-text="${#dates.format(activity.requestDate, 'yyyy-MM-dd')}">requestdate</td>
-						<td data-th-if="${activity.requestDate == null}"></td>
-						<td data-th-text="${activity.status?.text}">status</td>
+						<td data-th-text="${#dates.format(activity.requestDate, 'yyyy-MM-dd')}">requestdate</td>
+						<td data-th-text="${activity.status}">status</td>
 						<td>
 							<a data-th-href="@{'/activity/'+${activity.id}}">Visa</a> | 
 							<a data-th-href="@{'/activity/remove/'+${activity.id}}">Ta bort</a></td>
@@ -33,7 +32,7 @@
 								<li data-th-each="comment : ${activity.comments}">
 									<p data-th-text="${comment.text}">comment></p>
 								</li>
-								<li><a href="#">Lï¿½gg till</a></li>
+								<li><a href="#">Lägg till</a></li>
 							</ul>
 						</td>
 						 -->

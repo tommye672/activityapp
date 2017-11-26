@@ -1,5 +1,8 @@
 package com.yhsipi17.activityApp.controller;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import com.yhsipi17.activityApp.model.Comment;
+import com.yhsipi17.activityApp.service.activity.ActivityService;
 import com.yhsipi17.activityApp.service.comment.CommentService;
 
 @Controller
@@ -19,6 +23,9 @@ import com.yhsipi17.activityApp.service.comment.CommentService;
 public class CommentController {
 	@Autowired
 	private CommentService commentService;
+	
+	@Autowired
+	private ActivityService activityService;
 	
 	// FindAll
 	@RequestMapping(value = "/")
@@ -36,9 +43,9 @@ public class CommentController {
 	}
 	
 	// Add -> AddForm
-    @GetMapping("/add")
-    public String addForm(Model model) {
-        model.addAttribute("comment", new Comment());
+    @GetMapping("/add/{activityId}")
+    public String addForm(@PathVariable int activityId, Model model) {
+        model.addAttribute("comment", new Comment(activityService.findOne(activityId)));
         return "/comment/addcomment";
     }
 
@@ -53,14 +60,13 @@ public class CommentController {
     @PostMapping("/add")
     public String saveComment(@ModelAttribute Comment comment, BindingResult result, ModelMap model){
     	
-    	if (result.hasErrors()) {
-    		System.out.println(model.toString());
-    		return "error";
-    	}
-    	
+		if (comment.getDate() == null) {
+			Date today = Calendar.getInstance().getTime();
+			comment.setDate(today);
+		}
     	commentService.saveComment(comment);
     	
-        return "redirect:/comment/";
+        return "redirect:/activity/"+ comment.getActivity().getId();
     }
     
     // Delete

@@ -5,29 +5,19 @@
 <body>
 	<div class="col-sm-8" data-layout-fragment="content">
 		<h1>Form</h1>
-		<form data-th-action="@{/users/adduser}" data-th-object="${user}"
+		<form data-th-action="@{/comment/add}" data-th-object="${comment}"
 			method="post">
-			<input type="hidden" data-th-field="*{id}" />
-			
+			<input id="commentId" data-th-field="*{id}" type="hidden"/>
+			<input data-th-field="*{activity.id}" type="hidden"></input>
 			<p>
-				Förnamn: <input type="text" data-th-field="*{fName}" />
-			</p>
-			<p>
-				Efternamn: <input type="text" data-th-field="*{lName}" />
-			</p>
-			<p>
-				Initialer: <input type="text" data-th-field="*{initials}" />
+				Text: <input type="text" data-th-field="*{text}" />
 			</p>
 			<p>
 				<input type="submit" value="Submit" /> <input type="reset"
 					value="Reset" />
 			</p>
 		</form>
-		
 	</div>
 	<div data-layout-decorator="scripts"></div>
 </body>
 </html>
-
-
-

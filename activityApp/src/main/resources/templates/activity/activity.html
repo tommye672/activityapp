@@ -1,0 +1,48 @@
+<!doctype html>
+<html data-layout-decorator="default">
+<head>
+
+</head>
+<body>
+
+	<div class="col" data-layout-fragment="content">
+		<div class="row mt-5">
+			<div class="card w-75">
+				<div class="card-header bg-primary">
+					<h4 class="card-title">
+						Aktivitet - <small data-th-text="${activity.status.text}">status</small>
+					</h4>
+				</div>
+				<div class="card-body">
+
+					<div class="row">
+						<div class="col-4" data-th-text="@{'Ansvarig: '+ ${activity.owner?.fName} + ' ' +${activity.owner?.lName}}"></div>
+						<div class="col-4" data-th-if="${activity.requestDate != null}"
+							data-th-text="@{'Önskat datum: '+ ${#dates.format(activity.requestDate, 'yyyy-MM-dd')}}"></div>
+						<div class="col-4" data-th-if="${activity.endDate != null}"
+							data-th-text="@{'Avslutad datum: '+ ${#dates.format(activity.endDate, 'yyyy-MM-dd')}}"></div>
+					</div>
+					
+					<div class="card-text mt-3 mb-3" data-th-text="${activity.text}">text</div>
+					<a data-th-href="@{'/activity/edit/'+${activity.id}}">Redigera</a>
+				</div>
+			</div>
+		</div>
+		<div class="row mt-5">
+			<div class="col-sm-12 mb-2">
+				<h2>Kommentarer</h2>
+				<a data-th-href="@{'/comment/add/'+${activity.id}}">Lägg till
+					kommentar</a>
+			</div>
+			<ul class="list-group">
+				<li class="list-group-item"
+					data-th-each="comment : ${activity.comments}">
+					<h6 data-th-text="${#dates.format(comment.Date, 'yyyy-MM-dd')}"></h6>
+					<p data-th-text="${comment.text}"></p>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div data-layout-decorator="scripts"></div>
+</body>
+</html>

@@ -1,20 +1,17 @@
 package com.yhsipi17.activityApp.controller;
 
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.yhsipi17.activityApp.model.User;
 import com.yhsipi17.activityApp.service.user.UserService;
-
 
 @Controller
 @RequestMapping(value = "/users")
@@ -54,14 +51,12 @@ public class UserController {
     
     // Save
     @PostMapping("/adduser")
-    public String saveUser(@ModelAttribute User user, BindingResult result, ModelMap model){
+    public String saveUser(@Valid User user, BindingResult result, Model model){
     	
     	if (result.hasErrors()) {
-    		System.out.println(model.toString());
-    		return "error";
+    		return "/user/adduser";
     	}
     	
-		System.out.println(user.toString());
     	userService.saveUser(user);
     	
         return "redirect:/users/";
@@ -70,8 +65,7 @@ public class UserController {
     // Delete
 	@RequestMapping(value = "/remove/{id}")
 	public String deleteUser(@PathVariable int id) {
-		userService.deleteUser(id);
-		
+		userService.deleteUser(id);		
 		return "redirect:/users/";
 	}
     

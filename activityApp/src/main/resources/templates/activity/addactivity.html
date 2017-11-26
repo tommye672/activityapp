@@ -4,33 +4,39 @@
 </head>
 <body>
 	<div class="col-sm-8" data-layout-fragment="content">
-		<h1>Form</h1>
-		<form data-th-action="@{/activity/add}" data-th-object="${activity}"
-			method="post">
+	<div class="alert alert-danger" role="alert" data-th-if="${#lists.size(status) &lt; 1 }">
+  		Finns ingen status att välja. Skapa status <a href="/status/add" class="alert-link">HÄR </a>innan du går vidare.. 
+	</div>
+		<div class="alert alert-danger" role="alert" data-th-if="${#lists.size(users) &lt; 1 }">
+  		Finns ingen användare att välja. Skapa användare <a href="/users/adduser" class="alert-link">HÄR </a>innan du går vidare.. 
+	</div>
+		<h1>Skapa aktivitet</h1>
+		<form class="mt-5" data-th-action="@{/activity/add}" data-th-object="${activity}" method="post">
 			<input id="activityId" data-th-field="*{id}" type="hidden"/>
 			<input data-th-field="*{pubDate}" type="hidden"/>
-			<p>
-				Önskat datum: <input type="date" data-th-field="*{requestDate}" />
-			</p>
-			<p>
-				Text: <input type="text" data-th-field="*{text}" />
-			</p>
+
 			<div class="form-group">
-				<label for="selectStatus">Status</label> <select
-					class="form-control" data-th-field="${activity.status.id}" id="selectStatus">
+				<label class="col-12" for="requestDate">Önskat datum <span class="text-danger" data-th-if="${#fields.hasErrors('requestDate')}" data-th-errors="*{requestDate}">Name Error</span></label>
+				<input type="date" data-th-field="*{requestDate}" />		
+			</div>
+			<div class="form-group">
+				<label for="text">Text  <span class="text-danger" data-th-if="${#fields.hasErrors('text')}" data-th-errors="*{text}">Name Error</span></label>
+				<textarea class="form-control" id="text" rows="3" data-th-field="*{text}"></textarea>
+			</div>
+			<div class="form-group">
+				<label for="selectStatus">Status  <span class="text-danger" data-th-if="${#fields.hasErrors('status')}" data-th-errors="*{status}">Name Error</span></label> 
+				<select class="form-control" data-th-field="${activity.status.id}"	id="selectStatus">
 					<option data-th-each="status : ${status}" data-th-value="${status.id}" data-th-text="${status.text}"></option>
 				</select>
 			</div>
 			<div class="form-group">
-				<label for="selectOwner">Ansvarig</label> <select
-					class="form-control" data-th-field="${activity.owner.id}" id="selectOwner">
+				<label for="selectOwner">Ansvarig  <span class="text-danger" data-th-if="${#fields.hasErrors('owner')}" data-th-errors="*{owner}">Name Error</span></label> 
+				<select	class="form-control" data-th-field="${activity.owner.id}" id="selectOwner">
 					<option data-th-each="user : ${users}" data-th-value="${user.id}" data-th-text="${user.fName} + ' '+ ${user.lName} + ' ( '+${user.initials}+' )'"></option>
 				</select>
 			</div>
-			<p>
-				<input type="submit" value="Submit" /> <input type="reset"
-					value="Reset" />
-			</p>
+			 	<button class="btn btn-primary" type="submit">Skapa</button>
+				<button class="btn btn-primary" type="reset">Reset</button>
 		</form>
 	</div>
 	<div data-layout-decorator="scripts"></div>

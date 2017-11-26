@@ -1,11 +1,8 @@
 package com.yhsipi17.activityApp.service.status;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.yhsipi17.activityApp.model.Activity;
 import com.yhsipi17.activityApp.model.Status;
 import com.yhsipi17.activityApp.repository.status.StatusRepository;
 
@@ -28,8 +25,6 @@ public class StatusService{
 	}
 	
 	public void deleteStatus(int id){
-	
-		System.out.println("\n\n\n\n\n\n\nStatusService - Delete status\n\n\n\n\n\n\n\n" );
 		statusRepository.delete(id);
 	}
 }

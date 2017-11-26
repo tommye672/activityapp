@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="appuser")
@@ -15,19 +17,25 @@ public class User implements Serializable {
 	@Column(insertable=false, updatable=false, unique=true, nullable=false)
 	private Integer id;
 
+	@NotNull
+	@Size(min=2, max=255, message="Min=2 max=255 bokstäver")
 	@Column(length=255, nullable=false)
 	private String fName;
 
+	@NotNull
+	@Size(min=2, max=255, message="Min=2 max=255 bokstäver")
 	@Column(length=255, nullable=false)
 	private String lName;
 
+	@NotNull
+	@Size(min=2 , max=10)
 	@Column(length=10, unique=true, nullable=false)
 	private String initials;
 	
 	@OneToMany(mappedBy="fk_author")
 	private List<Activity> activitiesAuthor;
 	
-	@OneToMany(mappedBy="owner")
+	@OneToMany(mappedBy="owner", cascade = CascadeType.ALL)
 	private List<Activity> activitiesOwner;
 	
 	@OneToMany(mappedBy= "author")

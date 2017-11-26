@@ -2,9 +2,11 @@ package com.yhsipi17.activityApp.controller;
 
 import java.util.Calendar;
 import java.util.Date;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,7 +16,6 @@ import com.yhsipi17.activityApp.model.Activity;
 import com.yhsipi17.activityApp.service.activity.ActivityService;
 import com.yhsipi17.activityApp.service.status.StatusService;
 import com.yhsipi17.activityApp.service.user.UserService;
-
 
 @Controller
 @RequestMapping(value = "/activity")
@@ -62,13 +63,21 @@ public class ActivityController {
 	    
 	    // Save
 		@PostMapping("/add")
-		public String saveActivity(Activity activity) {
+		public String saveActivity(@Valid Activity activity, BindingResult bindingResult, Model model ) {
 	
+	        if (bindingResult.hasErrors()) {
+		        model.addAttribute("users", userService.findAll());
+		        model.addAttribute("status", statusService.findAll());
+	        	return "/activity/addactivity"; 
+	        }
+	        
+	        // Datum ska bara skrivas när aktiviteten skapas. 
+	        // TODO Undersök om en timestamp skapas per automatik vid onCreate
 			if (activity.getPubDate() == null) {
 				Date today = Calendar.getInstance().getTime();
 				activity.setPubDate(today);
 			}
-			//System.out.println(activity.toString());
+
 			activityService.saveActivity(activity);
 
 			return "redirect:/activity/";

@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -16,6 +19,8 @@ public class Activity implements Serializable {
 	@Column(insertable=false, updatable=false, unique=true, nullable=false)
 	private Integer id;
 
+	@NotNull
+	@Size(min=5, message="Texten måste bestå av minst 5 tecken")
 	@Column(nullable=false)
 	private String text;
 
@@ -23,6 +28,7 @@ public class Activity implements Serializable {
 	@JoinColumn(name= "fk_author")
 	private User fk_author;
 	
+	@NotNull(message="Får inte vara tomt, överväg att skapa en ny användare")
 	@ManyToOne
 	@JoinColumn(name= "fk_owner")
 	private User owner;
@@ -31,6 +37,7 @@ public class Activity implements Serializable {
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date pubDate;
 	
+	@Future(message="Ett passerat datum kan inte användas")
 	@Column
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date requestDate;
@@ -39,6 +46,7 @@ public class Activity implements Serializable {
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date finishedDate;
 	
+	@NotNull(message="Får inte vara tomt, överväg att skapa en ny status")
 	@ManyToOne
 	@JoinColumn(name= "fk_status")
 	private Status status;
